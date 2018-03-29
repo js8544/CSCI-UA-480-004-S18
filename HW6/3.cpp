@@ -9,14 +9,14 @@ int n,m,q;
 
 struct node{
 	node* parent;
-	int rank;
-	int h;
+	long long rank;
+	long long h;
 	int x;
 	int y;
 }grid[2001][2001];
 
 bool nodeCompare(node *a,node *b){return a->h>b->h;}
-
+bool pointerCompare(long long* a, long long* b) { return *a > *b; }
 vector<node*> neighbor(node *no){
 	vector<node*> neighbors;
 	if(no->x>0) neighbors.push_back(&grid[no->x-1][no->y]);
@@ -48,12 +48,12 @@ void unionNodes(node* x, node *y){
 
 int main(){
 	cin>>n>>m>>q;
-	vector<int> hs(q,0);
+	vector<long long> hs(q,0);
 	vector<node*> nodes(n*m,NULL);
 
 	for(int i=0;i<n;i++){
 		for(int j=0;j<m;j++){
-			int he;
+			long long he;
 			cin>>he;
 			grid[i][j].parent = &grid[i][j];
 			grid[i][j].rank = 0;
@@ -63,28 +63,28 @@ int main(){
 			nodes[i*m+j] = &grid[i][j];
 		}
 	}
-	unordered_map<int,int> hmap;
+	vector<long long*> hmap(q,NULL);
 	for(int i=0;i<q;i++){
-		int h;
+		long long h;
 		cin>>h;
 		hs[i] = h;
-		hmap[h] = i;
+		hmap[i] = &hs[i];
 	}
 
 	sort(nodes.begin(),nodes.end(),nodeCompare);
-	sort(hs.begin(),hs.end(),greater<int>());
+	sort(hmap.begin(),hmap.end(),pointerCompare);
 
-
-	vector<int> sol(q,0);
-	int cur = 0;
-	int count = 0;
+	unordered_map <long long,long long> sol;
+	long long cur = 0;
+	long long count = 0;
 
 	for(int i=0;i<q;i++){
-		while(cur<n*m&&nodes[cur]->h>hs[i]){
+		while(cur<n*m && nodes[cur]->h>*hmap[i]){
+			//cout<<hs[i]<<":"<<cur<<"\n";
 			vector <node*> neighbors= neighbor(nodes[cur]);
 			for(int j=0;j<neighbors.size();j++){
 				node* neighbor = neighbors[j];
-				if(neighbor->h>hs[i]&&findRoot(neighbor)!=findRoot(nodes[cur])){
+				if(neighbor->h>*hmap[i]&&findRoot(neighbor)!=findRoot(nodes[cur])){
 					unionNodes(nodes[cur],neighbor);
 					count--;
 				}
@@ -93,10 +93,11 @@ int main(){
 			count++;
 			cur++;
 		}
-		sol[hmap[hs[i]]]=count;
+		//cout<<*hmap[i]<<" "<<hs[i]<<":"<<count<<"\n";
+		sol[*hmap[i]]=count;
 	}
-	
+
 	for(int i=0;i<q;i++){
-		cout<<sol[i]<<"\n";
+		cout<<sol[hs[i]]<<"\n";
 	}
 }
