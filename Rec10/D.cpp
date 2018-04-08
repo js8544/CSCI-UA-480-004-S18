@@ -16,7 +16,6 @@
 #include <list>
 #include <iterator>
 #include <iomanip>
-#include <stack>
 
 using namespace std;
 
@@ -37,7 +36,28 @@ using namespace std;
 #define VI vector<int> 
 #define PLL part<ll,ll>
 #define int long long
-
+int res(int a){
+	int x = 1;
+	REP(i,a){
+		x *= a;
+	}
+	return x-a+1;
+}
 signed main(){
+	int n;
+	cin>>n;
 	
+	while(n>0){
+		int i=1;
+		while(res(i)<n){
+			i++;
+		}
+		if(res(i)==n){
+			cout<<n<<" coconuts, "<<i<<" people and 1 monkey\n";
+		}
+		else{
+			cout<<n<<" coconuts, no solution\n";
+		}
+		cin>>n;
+	}
 }

@@ -37,7 +37,49 @@ using namespace std;
 #define VI vector<int> 
 #define PLL part<ll,ll>
 #define int long long
+int t,A;
+int n22=0, n24=0,n32=0,n34=0;
+int f;
+int is_n(int x1,int y1,int x2,int y2){
+	if(ABS(x1-x2)<=1&&ABS(y1-y2)<=1){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+}
 
+void o(int x,int y){
+	//cout<<x<<" "<<y<<endl;
+	cout<<"haha";
+	int a,b;
+	cin>>a>>b;
+	if(a==0&&b==0) f = 1;
+	if(is_n(2,2,a,b))n22++;
+	if(is_n(2,4,a,b))n24++;
+	if(is_n(3,2,a,b))n32++;
+	if(is_n(3,4,a,b))n34++;
+}
 signed main(){
-	
+	cin>>t;
+	REP(i,t){
+		f=0;
+		cin>>A;
+		while(n22!=9){
+			o(2,2);
+			if(f) return 0;
+		}
+		while(n24!=9){
+			o(2,4);
+			if(f) return 0;
+		}
+		while(n32!=9){
+			o(3,2);
+			if(f) return 0;
+		}
+		while(n34!=9){
+			o(3,4);
+			if(f) return 0;
+		}
+	}
 }

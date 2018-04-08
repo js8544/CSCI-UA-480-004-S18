@@ -16,7 +16,6 @@
 #include <list>
 #include <iterator>
 #include <iomanip>
-#include <stack>
 
 using namespace std;
 
@@ -36,8 +35,9 @@ using namespace std;
 #define ll long long
 #define VI vector<int> 
 #define PLL part<ll,ll>
-#define int long long
 
-signed main(){
-	
+int main(){
+	int n;
+	cin>>n;
+	cout<<n/3<<"\n";
 }

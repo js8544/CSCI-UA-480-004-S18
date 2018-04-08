@@ -37,7 +37,18 @@ using namespace std;
 #define VI vector<int> 
 #define PLL part<ll,ll>
 #define int long long
-
+int t;
+double a;
 signed main(){
-	
+	cin>>t;
+	REP(i,t){
+		cin>>a;
+		if(a<=sqrt(2)){
+			double x = sqrt(2-a*a);
+			cout<<"Case #"<<i+1<<":\n";
+			cout<<setprecision(8)<<(a+x)/4<<" "<<(a-x)/4<<" 0\n";
+			cout<<setprecision(8)<<(x-a)/4<<" "<<(a+x)/4<<" 0\n";
+			cout<<"0 0 0.5\n";
+		}
+	}
 }

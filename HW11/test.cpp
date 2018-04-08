@@ -16,7 +16,7 @@
 #include <list>
 #include <iterator>
 #include <iomanip>
-#include <stack>
+#include <fstream>
 
 using namespace std;
 
@@ -36,8 +36,21 @@ using namespace std;
 #define ll long long
 #define VI vector<int> 
 #define PLL part<ll,ll>
-#define int long long
 
-signed main(){
-	
+int main(){
+  ofstream myfile;
+  myfile.open ("test");
+  myfile <<"100000 100000\n";
+  REP(i,50000){
+  	myfile << "10000 -10000 ";
+  }
+  myfile << "\n";
+  REP(i,33334){
+  	myfile << "a "<<i<<" "<<i+1<<" 10000\n";
+  	myfile << "m "<<i<<" "<<i+1<<"\n";
+  	myfile << "s "<<i<<" "<<i+1<<"\n";
+  }
+
+  myfile.close();
+  return 0;
 }

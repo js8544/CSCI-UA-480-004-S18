@@ -38,6 +38,48 @@ using namespace std;
 #define PLL part<ll,ll>
 #define int long long
 
+int t,n;
+
 signed main(){
-	
+	cin>>t;
+	REP(i,t){
+		priority_queue<int> s;
+		cin>>n;
+		int cur = 1;
+		int d = 0;
+		char c = 0;
+		while(c != '\n'){
+			cin.get(c);
+			if(c=='C'){
+				cur*=2;
+			}
+			if(c=='S'){
+				if(cur>1) s.push(cur);
+				d += cur;
+			}
+		}
+
+		int count = 0; 
+		while(d>n){
+			if(s.empty()){
+				count = -1;
+				break;
+			}
+			else{
+				int l = s.top()/2;
+				d -= l;
+				s.pop();
+				if(l>1) s.push(l);
+
+				count++;
+			}
+		}
+		if(count==-1){
+			cout<<"Case #"<<i+1<<": IMPOSSIBLE\n";
+		}
+		else{
+			cout<<"Case #"<<i+1<<": "<<count<<"\n";
+		}
+
+	}
 }
