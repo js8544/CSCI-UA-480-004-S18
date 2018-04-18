@@ -36,11 +36,74 @@ using namespace std;
 #define ll long long
 #define VI vector<int> 
 #define PLL part<ll,ll>
-#define int long long
 #define INF 1LL<<60
 #define mp make_pair
-#define int long long
+int n;
+int black[20];
+int white[20];
 
-signed main(){
+int depth[2000000];
+int reach[2000000];
+stack<char> sol;
+int BFS(int s){
 	
+	if(depth[s]>=1000000){
+		return 0;
+	}
+	if(__builtin_popcount(s)==1){
+		return 1;
+	}
+	int b=0,w=0;
+	REP(i,n){
+		if(s&(1<<i)){
+			b|=1<<(n-black[n-i-1]);
+			w|=1<<(n-white[n-i-1]);
+		}
+	}
+	//P3(s,w,b);
+	if(!reach[b]){
+		reach[b] = 1;
+		depth[b] = depth[s]+1;
+		if(BFS(b)){
+			sol.push('b');
+			return 1;
+		}
+	}
+	
+	if(!reach[w]){
+		reach[w] = 1;
+		depth[w] = depth[s]+1;
+		if(BFS(w)){
+			sol.push('w');
+			return 1;
+		}
+	}
+	return 0;
+}
+int main(){
+	FILL(reach,0);
+	FILL(depth,0);
+	cin>>n;
+	REP(i,n){
+		int x;
+		cin>>x;
+		white[i]=x;
+	}
+	REP(i,n){
+		int x;
+		cin>>x;
+		black[i]=x;
+	}
+	reach[(1<<n)-1]=1;
+	if(BFS((1<<n)-1)){
+		while(!sol.empty()){
+			char c = sol.top();
+			cout<<c;
+			sol.pop();
+		}
+		cout<<"\n";
+	}
+	else{
+		cout<<"impossible\n";
+	}
 }

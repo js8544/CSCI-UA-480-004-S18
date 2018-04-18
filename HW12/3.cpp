@@ -41,7 +41,7 @@ using namespace std;
 
 
 char grid[501][501];
-vector<PII> fire;
+queue<PII> fire;
 int n,m,dist[501][501];
 
 int valid(PII a){
@@ -75,6 +75,8 @@ vector<PII> neighbor(PII x){
 
 }
 signed main(){
+	// clock_t t1,t2;
+	// t1 = clock();
 	cin>>n>>m;
 	PII start;
 	REP(i,n){
@@ -86,7 +88,7 @@ signed main(){
 				start.second = j;
 			}
 			if(grid[i][j]=='F'){
-				fire.pb(make_pair(i,j));
+				fire.push(make_pair(i,j));
 			}
 		}
 	}
@@ -127,11 +129,13 @@ signed main(){
 	    	r++;
 	    	int fsize = fire.size();
 	    	REP(i,fsize){
-	    		vector<PII> nei = neighbor(fire[i]);
+	    		PII f=fire.front();
+	    		fire.pop();
+	    		vector<PII> nei = neighbor(f);
 		    	REP(j,nei.size()) {
 		    		PII y = nei[j];
 				    grid[y.first][y.second] = 'F';
-				    fire.pb(y);
+				    fire.push(y);
 			    }
 	    	}
 	    	swap(q1,q2);
@@ -141,5 +145,9 @@ signed main(){
     }
     if(out)P1(r);
     else P1("-1");
+    // t2=clock();
+    // float diff ((float)t2-(float)t1);
+    // float seconds = diff / CLOCKS_PER_SEC;
 
+    // cout<<seconds<<endl;
 }

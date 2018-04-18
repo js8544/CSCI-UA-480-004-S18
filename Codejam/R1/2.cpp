@@ -41,6 +41,23 @@ using namespace std;
 #define mp make_pair
 #define int long long
 
+int t;
 signed main(){
-	
+	cin>>t;
+	REP(x1,t){
+		int r,b,c;
+		vector<int> M,S,P;
+		cin>>r>>b>>c;
+		REP(i,c){
+			int m,s,p;
+			cin>>m>>s>>p;
+
+			M.pb(m);
+			S.pb(s);
+			P.pb(p);
+		}
+
+
+
+	}
 }

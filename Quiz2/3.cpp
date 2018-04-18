@@ -40,7 +40,41 @@ using namespace std;
 #define INF 1LL<<60
 #define mp make_pair
 #define int long long
+#define MAXN 400000
+int n,m;
+vector<int> order;
+vector<int> adj[MAXN];
+int turn;
+void euler(int x){
+	
+  while (adj[x].size()) {
+    int y = adj[x].back(); // we choose the last edge for fast removal
+    adj[x].pop_back(); // remove this edge so that it will not be visited again
+    euler(y);
+  }
+  turn++;
+	order.push_back(x);
+
+}
 
 signed main(){
-	
+	turn = 0;
+	int total=0;
+	cin>>n>>m;
+	REP(i,m){
+		int a,b,w;
+		cin>>a>>b>>w;
+		total += 2*w;
+		adj[a].pb(b);
+		adj[b].pb(a);
+	}
+
+	euler(1);
+	cout<<total<<"\n";
+	cout<<turn<<"\n";
+	reverse(order.begin(), order.end());
+	REP(i,order.size()){
+		cout<<order[i]<<" ";
+	}
+	cout<<"\n";
 }
