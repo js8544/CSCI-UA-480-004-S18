@@ -40,8 +40,13 @@ using namespace std;
 #define INF 1LL<<60
 #define mp make_pair
 #define int long long
-#define fi first
-#define se second
-int n;
+#define MAXN 20000000
+int is_prime[MAXN];
 signed main(){
+	REP(i,MAXN){
+		is_prime[i] = 1;
+	}
+	is_prime[0] = is_prime[1] = 0;
+	REP(i,MAXN)
+
 }

@@ -42,6 +42,60 @@ using namespace std;
 #define int long long
 #define fi first
 #define se second
+#define MAXN 51
+#define MAXSUM 5001
+
+PII dp[MAXN][MAXN][MAXSUM*2+1];
 int n;
+int levels[MAXN];
 signed main(){
+	cin>>n;
+	REP(i,n)REP(j,n)REP(k,MAXSUM*2+1) dp[i][j][k] = mp(0,0);
+	dp[0][0][MAXSUM] = mp(1,0);
+
+	for(int i=1;i<=n;i++){
+		int w; cin>>w;
+		levels[i-1] = w;
+		//P2("w",w);
+		for(int k=0;k<=n;k++){
+			REP(d,MAXSUM*2+1){
+				if(dp[i-1][k][d].fi==1){
+					//P2(abs(d-MAXSUM),dp[i-1][k][d].se);
+					if(k+1<=n){
+						dp[i][k+1][d+w].fi = 1;
+						dp[i][k+1][d+w].se = dp[i-1][k][d].se | (1LL<<(i-1));
+					}
+					dp[i][k][d-w].fi = 1;
+					dp[i][k][d-w].se = dp[i-1][k][d].se;
+				}
+
+			}
+		}
+	}
+	int ans = INF,pick = 0;
+	FOR(k,(n-1)/2,n/2+1){
+		REP(d,MAXSUM*2+1){
+			if(dp[n][k][d].first){
+				int temp = ABS(d-MAXSUM);
+				if(temp<ans){
+					ans = temp;
+					pick = dp[n][k][d].second;
+				}
+			}
+		}
+	}
+
+	P1(ans);
+	vector<int> left,right;
+	REP(i,n){
+		if(pick&1LL<<i)left.pb(i);
+		else right.pb(i);
+	}
+	//P1(pick);
+	REP(i,left.size()) cout<<levels[left[i]]<<" ";
+	cout<<"\n";
+	REP(i,right.size()) cout<<levels[right[i]]<<" ";
+	cout<<"\n";
+
+
 }

@@ -44,4 +44,7 @@ using namespace std;
 #define se second
 int n;
 signed main(){
+	cin>>n;
+	double ans = (double)(n*n-1)/3;
+	cout<<setprecision(20)<<ans<<"\n";
 }

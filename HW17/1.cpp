@@ -42,6 +42,27 @@ using namespace std;
 #define int long long
 #define fi first
 #define se second
-int n;
+int n,a,b;
+int gcd(int x,int y){
+	if(y==0) return x;
+	if(x>y) return gcd(y,x%y);
+	return gcd(x,y%x);
+}
 signed main(){
+	cin>>n>>a>>b;
+	int g = gcd(a,b);
+
+	if(g==1) P2(a,b);
+	
+	else{
+		int ans;
+		for(int d = 2;d <= n;d++){
+			if(gcd(a,d)==1 && gcd(b,d)==1){
+				ans = d;
+				break;
+			}
+		}
+		P3(a,ans,b);
+	}
+
 }

@@ -40,8 +40,33 @@ using namespace std;
 #define INF 1LL<<60
 #define mp make_pair
 #define int long long
-#define fi first
-#define se second
-int n;
+#define MAXU 5001
+#define MAXN 1001
+int n,u;
+int dp[MAXN][MAXU];
+int num[MAXN];
 signed main(){
+	cin>>n>>u;
+	REP(i,MAXN){
+		REP(j,MAXU)dp[i][j] = 0;
+	}
+
+	REP(i,n){
+		cin>>num[i];
+	}
+
+	dp[0][0] = 1;
+	FOR(i,1,n+1){
+		REP(j,u+1){
+			dp[i][j] = dp[i-1][j];
+			if(j>=num[i-1]) dp[i][j] += dp[i-1][j-num[i-1]];
+			dp[i][j] %=mod;
+			//P3(i,j,dp[i][j]);
+		}
+	}
+
+	REP(i,u+1){
+		cout<<i<<": "<<dp[n][i]%mod<<"\n";
+	}
+	
 }

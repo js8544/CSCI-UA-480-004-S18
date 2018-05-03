@@ -40,8 +40,28 @@ using namespace std;
 #define INF 1LL<<60
 #define mp make_pair
 #define int long long
-#define fi first
-#define se second
+#define MAXN 1001
+int dp[MAXN][MAXN];
 int n;
+int x[MAXN],y[MAXN];
 signed main(){
+	cin>>n;
+	REP(i,MAXN)REP(j,MAXN)dp[i][j]=0;
+	REP(i,n){
+		cin>>x[i];
+	}
+	REP(i,n){
+		cin>>y[i];
+	}
+	dp[0][0] = dp[0][1] = dp[1][0] = 0;
+	FOR(i,1,n+1){
+		FOR(j,1,n+1){
+			dp[i][j] = MAX(dp[i-1][j],dp[i][j-1]);
+
+			dp[i][j] = MAX(dp[i][j],dp[i-1][j-1] + ((x[i-1]==y[j-1])?1:0));	
+			
+		}
+	}
+	
+	P1(n-dp[n][n]);
 }
